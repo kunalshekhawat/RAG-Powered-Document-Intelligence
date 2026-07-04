@@ -9,7 +9,7 @@
 
 An advanced, production-grade Retrieval-Augmented Generation (RAG) pipeline designed to extract contextual insights and answer complex user queries from unstructured PDF documents — featuring hybrid retrieval, cross-encoder reranking, multi-turn memory, and quantitative RAGAS evaluation.
 
-**[🔗 Try the Live Application Here]([https://rag-powered-document-intelligence-hne8pkmr3j5jdfgqmw3xrh.streamlit.app](https://rag-powered-document-intelligence-hne8pkmr3j5jdfgqmw3xrh.streamlit.app/))**
+**[🔗 Try the Live Application Here]([https://rag-powered-document-intelligence-hne8pkmr3j5jdfgqmw3xrh.streamlit.app])**
 
 ---
 

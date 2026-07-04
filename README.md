@@ -1,0 +1,2 @@
+# RAG-Powered Document Intelligence
+A Retrieval-Augmented Generation (RAG) pipeline built to extract contextual insights and answer complex user queries directly from unstructured PDF data using LangChain, Streamlit, and Google's Gemini 2.5 Flash.

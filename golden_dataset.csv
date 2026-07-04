@@ -1,0 +1,101 @@
+user_input,reference
+What problem in sequence transduction motivated the development of the Transformer architecture?,"The Transformer was proposed to overcome the limitations of recurrent and convolutional neural networks, particularly their inability to fully parallelize computation and their difficulty in modeling long-range dependencies efficiently."
+What is the primary contribution of the paper 'Attention Is All You Need'?,"The paper introduces the Transformer, a sequence transduction architecture that relies entirely on attention mechanisms, eliminating the need for recurrence and convolution while achieving state-of-the-art translation performance."
+Which two sequence transduction tasks are primarily discussed in the paper?,The paper primarily focuses on neural machine translation and also demonstrates the effectiveness of the Transformer on English constituency parsing.
+Why are recurrent neural networks difficult to parallelize during training?,"RNNs process tokens sequentially, meaning the hidden state at each time step depends on the previous one, preventing parallel computation across sequence positions."
+How does the Transformer improve computational parallelism compared to recurrent models?,"Since the Transformer removes recurrence and processes all sequence positions simultaneously using attention mechanisms, computations can be parallelized across the entire sequence."
+What overall architecture does the Transformer follow?,The Transformer follows an encoder-decoder architecture consisting of a stack of encoders that process the input sequence and a stack of decoders that generate the output sequence.
+How many encoder layers are used in the base Transformer model?,The base Transformer consists of six identical encoder layers.
+How many decoder layers are used in the base Transformer model?,The base Transformer consists of six identical decoder layers.
+What are the two major sublayers present in every encoder layer?,"Each encoder layer contains a Multi-Head Self-Attention sublayer followed by a Position-wise Feed-Forward Network, with residual connections and layer normalization applied around each sublayer."
+What additional sublayer exists in every decoder layer that is not present in the encoder?,Each decoder layer includes an encoder-decoder attention sublayer that allows the decoder to attend to the encoder's output representations.
+Why does the decoder contain a masked self-attention mechanism?,"Masking prevents each decoding position from attending to future positions, ensuring predictions depend only on previously generated tokens during training."
+What is the purpose of encoder-decoder attention?,Encoder-decoder attention enables the decoder to selectively focus on relevant encoder outputs while generating each target token.
+What mechanism replaces recurrence in the Transformer architecture?,"Self-attention replaces recurrence, allowing every token in a sequence to directly attend to every other token."
+What does the paper mean by 'attention is all you need'?,The title emphasizes that attention mechanisms alone are sufficient to build an effective sequence transduction model without relying on recurrent or convolutional layers.
+What is the dimensionality of the model representations in the base Transformer?,The base Transformer uses a model dimension (d_model) of 512.
+What hidden dimension is used in the feed-forward network of the base Transformer?,Each feed-forward network expands the representation to an intermediate dimension of 2048 before projecting it back to the model dimension.
+What are residual connections used for in the Transformer?,"Residual connections help stabilize optimization, improve gradient flow and allow deeper models to train more effectively."
+Why is Layer Normalization applied after each sublayer?,"Layer Normalization stabilizes training by normalizing activations within each training example, improving convergence."
+What are the three different applications of Multi-Head Attention within the Transformer architecture?,"Multi-Head Attention is used for encoder self-attention, decoder masked self-attention and encoder-decoder attention."
+What is the objective of the encoder stack?,The encoder transforms the input sequence into contextual representations that capture relationships among all input tokens.
+What is the objective of the decoder stack?,The decoder generates the target sequence autoregressively by attending to previously generated outputs and the encoder representations.
+Why is the Transformer considered more scalable than recurrent architectures?,Its fully parallelizable computations significantly reduce training time while maintaining strong modeling capability for long-range dependencies.
+What property of self-attention allows the Transformer to model distant dependencies effectively?,"Self-attention creates direct interactions between every pair of sequence positions, resulting in short information paths regardless of token distance."
+What is the maximum path length between two positions in a self-attention layer?,"The maximum path length between any two positions in a self-attention layer is constant (O(1)), enabling efficient modeling of long-range dependencies."
+What conclusion do the authors draw about attention-based architectures?,The authors conclude that attention mechanisms alone are sufficient for achieving state-of-the-art performance in sequence transduction while enabling significantly faster training than previous recurrent or convolutional approaches.
+What mathematical operation forms the basis of Scaled Dot-Product Attention?,"Scaled Dot-Product Attention computes the dot product between queries and keys, scales the result by the square root of the key dimension, applies a softmax function, and uses the resulting weights to compute a weighted sum of the values."
+What are the three inputs to an attention mechanism?,"The attention mechanism takes Queries (Q), Keys (K), and Values (V) as its inputs."
+What is the purpose of the query matrix in self-attention?,The query matrix represents the information each token uses to search for relevant information from other tokens.
+What is the role of the key matrix?,The key matrix represents the features against which queries are compared to compute attention scores.
+What is the role of the value matrix?,The value matrix contains the representations that are aggregated using the attention weights to produce the final output.
+"Why are separate projection matrices learned for Q, K, and V?","Learning separate projections allows the model to represent tokens differently depending on whether they are used as queries, keys, or values, increasing representational flexibility."
+How are attention scores computed before applying softmax?,Attention scores are computed as the dot product of the query matrix and the transpose of the key matrix.
+Why is the softmax function applied in attention?,Softmax converts the attention scores into a probability distribution so that the weights assigned to all tokens sum to one.
+Why is the attention score divided by √dk?,"Scaling prevents large dot-product values from pushing the softmax into regions with extremely small gradients, improving training stability."
+What happens if scaling by √dk is omitted for large embedding dimensions?,"The dot products become large, causing softmax outputs to become extremely peaked and gradients to become very small."
+How does self-attention differ from encoder-decoder attention?,"In self-attention, queries, keys, and values come from the same sequence, whereas in encoder-decoder attention the queries come from the decoder and the keys and values come from the encoder."
+What does each attention head learn?,Each attention head learns to capture different relationships and representation subspaces within the sequence.
+How are the outputs of multiple attention heads combined?,The outputs of all attention heads are concatenated and passed through a final learned linear projection.
+Why is Multi-Head Attention more powerful than single-head attention?,It enables the model to simultaneously focus on different types of relationships and information from multiple representation subspaces.
+How many attention heads are used in the Transformer base model?,The base Transformer uses 8 attention heads.
+What is the dimension of each attention head in the base model?,Each attention head uses key and value dimensions of 64.
+How does Multi-Head Attention improve representation learning?,"Different heads specialize in capturing different syntactic and semantic relationships, producing richer contextual representations."
+Why can every token attend to every other token in self-attention?,"The attention mechanism computes pairwise interactions between all sequence positions, allowing every token to access information from every other token."
+What is the computational complexity of self-attention with respect to sequence length?,"The computational complexity of a self-attention layer is O(n²·d), where n is the sequence length and d is the representation dimension."
+Why is self-attention particularly effective for modeling long-range dependencies?,"Any two positions are connected through a single attention operation, resulting in a constant maximum path length."
+What is the significance of Figure 2 in the paper?,Figure 2 illustrates the computation of Scaled Dot-Product Attention and the overall Multi-Head Attention mechanism.
+What linear transformations are applied before computing attention?,"Separate learned linear projections transform the input embeddings into query, key, and value vectors."
+Why do different attention heads use different projection matrices?,Independent projection matrices encourage different heads to learn complementary relationships instead of identical ones.
+How is the final output dimension of Multi-Head Attention kept equal to d_model?,"After concatenating the outputs of all heads, a learned linear projection maps the combined representation back to the model dimension."
+"According to the paper, what is one major advantage of Multi-Head Attention over averaging multiple attention mechanisms?","Multi-Head Attention preserves distinct learned representations from different subspaces before combining them through a learned projection, allowing richer feature extraction than simple averaging."
+What is the purpose of the position-wise feed-forward network in each Transformer layer?,The position-wise feed-forward network independently transforms the representation at each sequence position using two linear transformations with a ReLU activation in between.
+Why is the feed-forward network applied independently to each position?,Applying the same feed-forward network to every position allows nonlinear feature transformation while preserving parallel computation across the sequence.
+What is the mathematical form of the feed-forward network?,"FFN(x) = max(0, xW1 + b1)W2 + b2."
+What activation function is used in the feed-forward network?,ReLU is used between the two linear transformations.
+What are the dimensions used in the base model's feed-forward network?,"The input and output dimension is 512, while the hidden dimension is 2048."
+Why are positional encodings necessary in the Transformer?,"Because the Transformer contains no recurrence or convolution, positional encodings provide information about token order."
+What type of positional encoding is used in the paper?,The paper uses fixed sinusoidal positional encodings.
+Which mathematical functions define the positional encodings?,Sine functions are used for even dimensions and cosine functions are used for odd dimensions.
+Why did the authors choose sinusoidal positional encodings instead of only learned embeddings?,They hypothesized sinusoidal encodings would generalize to sequence lengths longer than those seen during training.
+How are positional encodings incorporated into the input?,They are added element-wise to the input embeddings at the bottoms of the encoder and decoder stacks.
+Did learned positional embeddings outperform sinusoidal encodings?,No. The authors reported nearly identical performance for learned and sinusoidal positional embeddings.
+Why are input embeddings multiplied by √d_model?,Scaling the embeddings by √d_model keeps their magnitude comparable to the positional encodings.
+Which optimizer is used to train the Transformer?,Adam optimizer.
+What Adam hyperparameters are used?,"β1 = 0.9, β2 = 0.98, and ε = 10⁻⁹."
+How does the learning rate behave during warmup?,It increases linearly for the first 4000 training steps.
+How does the learning rate behave after warmup?,It decays proportionally to the inverse square root of the training step number.
+Why is a custom learning-rate schedule used?,It stabilizes optimization during early training while enabling efficient convergence later.
+What regularization technique is applied throughout the model?,"Dropout is applied to sublayer outputs, embeddings, and positional encodings."
+What dropout rate is used in the base Transformer?,0.1
+What is the purpose of label smoothing?,Label smoothing improves generalization and BLEU score by preventing the model from becoming overconfident.
+What value of label smoothing is used?,ε = 0.1.
+How are training batches constructed?,Batches are formed using approximate sequence length to maximize computational efficiency.
+Approximately how many source and target tokens are included in a training batch?,"Around 25,000 source tokens and 25,000 target tokens."
+Why is batching by similar sequence lengths beneficial?,It reduces unnecessary padding and improves GPU utilization during training.
+How many GPUs were used to train the base Transformer model?,Eight NVIDIA P100 GPUs.
+"According to Table 1, what three characteristics are compared across different sequence modeling layers?","Table 1 compares computational complexity per layer, the minimum number of sequential operations, and the maximum path length between any two positions."
+Which layer type has the shortest maximum path length?,Self-attention has a constant maximum path length of O(1).
+Why is a short maximum path length beneficial?,"It enables information to flow efficiently between distant tokens, making long-range dependency learning easier."
+What is the computational complexity of a self-attention layer?,"The computational complexity is O(n²·d), where n is the sequence length and d is the representation dimension."
+When is self-attention computationally preferable to recurrent layers?,"It is advantageous when the sequence length is smaller than the representation dimension, which is common in neural machine translation."
+Why can restricted self-attention reduce computational cost?,Restricting attention to a local neighborhood reduces complexity while retaining many benefits of self-attention.
+What does Table 2 primarily report?,Table 2 reports machine translation performance of different models using BLEU scores.
+What BLEU score does the Transformer (base) achieve on WMT14 English-German?,The base Transformer achieves a BLEU score of 27.3 on WMT14 English-German.
+What BLEU score does the Transformer (big) achieve on WMT14 English-German?,The Transformer (big) achieves a BLEU score of 28.4 on WMT14 English-German.
+What BLEU score does the Transformer (big) achieve on WMT14 English-French?,The Transformer (big) achieves a BLEU score of 41.8 on WMT14 English-French.
+Why are the reported BLEU scores significant?,They demonstrate that the Transformer achieved state-of-the-art translation quality while requiring substantially less training time than previous models.
+What is the purpose of the ablation study in Table 3?,It analyzes how architectural choices and hyperparameters affect Transformer performance.
+How does changing the number of attention heads influence performance?,Using too few or too many attention heads degrades performance compared with the chosen configuration.
+Why is Multi-Head Attention superior to a single attention head?,"Multiple heads learn complementary relationships from different representation subspaces, improving representation quality."
+What observation is made about model size in the ablation experiments?,Increasing model capacity generally improves translation performance when training remains stable.
+What does Table 4 evaluate?,Table 4 evaluates the Transformer on English constituency parsing using the Penn Treebank benchmark.
+What parsing F1 score is achieved by the Transformer using only the WSJ training set?,The Transformer achieves an F1 score of 91.3 using only the WSJ training data.
+What parsing F1 score is achieved using semi-supervised training?,The semi-supervised Transformer achieves an F1 score of 92.7.
+Why is the parsing experiment important?,It demonstrates that the Transformer generalizes beyond machine translation to other sequence modeling tasks.
+What is illustrated in Figure 1?,Figure 1 presents the overall Transformer encoder-decoder architecture.
+What is illustrated in Figure 2?,Figure 2 illustrates Scaled Dot-Product Attention and Multi-Head Attention.
+What do the attention visualizations in later figures demonstrate?,They show that different attention heads learn meaningful linguistic patterns such as syntactic dependencies and coreference relationships.
+Why are attention visualizations valuable?,They improve interpretability by showing what different attention heads focus on.
+What future research direction do the authors mention for self-attention?,They suggest investigating restricted or local attention mechanisms for handling very long sequences more efficiently.
+What is the overall conclusion of the paper?,"The Transformer demonstrates that attention mechanisms alone are sufficient for high-quality sequence transduction, providing faster training, strong parallelization, and state-of-the-art performance without recurrence or convolution."
